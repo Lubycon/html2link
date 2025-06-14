@@ -1,32 +1,48 @@
+import { createHash } from 'crypto';
 import { type NextRequest, NextResponse } from 'next/server';
-import { v4 as uuidv4 } from 'uuid';
 
 const GITHUB_API = 'https://api.github.com';
+const REPO_OWNER = 'lubycon';
+const REPO = 'notion-embed';
+const BRANCH = 'main';
 
 export async function POST(req: NextRequest) {
   const { html } = await req.json();
-  const id = uuidv4(); // 짧은 ID로 파일명 구성
-  const filename = `widgets/${id}.html`;
 
-  const githubRes = await fetch(`${GITHUB_API}/repos/lubycon/notion-embed/contents/${filename}`, {
+  const hash = createHash('sha256').update(html).digest('hex').slice(0, 16);
+  const filename = `widgets/${hash}.html`;
+
+  const checkRes = await fetch(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO}/contents/${filename}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Accept: 'application/vnd.github.v3+json',
+    },
+  });
+
+  if (checkRes.ok) {
+    const fileUrl = `https://${REPO_OWNER}.github.io/${REPO}/${filename}`;
+    return NextResponse.json({ url: fileUrl, cached: true });
+  }
+
+  const uploadRes = await fetch(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO}/contents/${filename}`, {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      message: `Add widget: ${id}`,
+      message: `Add widget: ${hash}`,
       content: Buffer.from(html).toString('base64'),
-      branch: 'main',
+      branch: BRANCH,
     }),
   });
 
-  const result = await githubRes.json();
+  const uploadResult = await uploadRes.json();
 
-  if (!githubRes.ok) {
-    return NextResponse.json({ error: result.message }, { status: 500 });
+  if (!uploadRes.ok) {
+    return NextResponse.json({ error: uploadResult.message }, { status: 500 });
   }
 
-  const fileUrl = `https://${process.env.GITHUB_USERNAME}.github.io/${process.env.GITHUB_REPO}/${filename}`;
-  return NextResponse.json({ id, url: fileUrl });
+  const fileUrl = `https://${REPO_OWNER}.github.io/${REPO}/${filename}`;
+  return NextResponse.json({ url: fileUrl, cached: false });
 }
