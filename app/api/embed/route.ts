@@ -1,4 +1,5 @@
 import { createHash } from 'crypto';
+import { validateHTML } from '@/utils/validateHTML';
 import { type NextRequest, NextResponse } from 'next/server';
 
 const GITHUB_API = 'https://api.github.com';
@@ -9,17 +10,22 @@ const BRANCH = 'main';
 export async function POST(req: NextRequest) {
   const { html } = await req.json();
 
+  const [validationResult, validationMessage] = validateHTML(html);
+  if (validationResult === false) {
+    return NextResponse.json({ error: validationMessage }, { status: 400 });
+  }
+
   const hash = createHash('sha256').update(html).digest('hex').slice(0, 16);
   const filename = `widgets/${hash}.html`;
 
-  const checkRes = await fetch(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO}/contents/${filename}`, {
+  const cached = await fetch(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO}/contents/${filename}`, {
     headers: {
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       Accept: 'application/vnd.github.v3+json',
     },
   });
 
-  if (checkRes.ok) {
+  if (cached.ok) {
     const fileUrl = `https://${REPO_OWNER}.github.io/${REPO}/${filename}`;
     return NextResponse.json({ url: fileUrl, cached: true });
   }
