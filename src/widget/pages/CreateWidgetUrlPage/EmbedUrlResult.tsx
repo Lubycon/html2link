@@ -4,7 +4,7 @@ interface Props {
   url: string;
 }
 
-export default function EmbedResult({ url }: Props) {
+export default function EmbedUrlResult({ url }: Props) {
   return (
     <div
       style={{

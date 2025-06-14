@@ -1,5 +1,6 @@
 import { useAuth } from '@/common/AuthContext';
 import { isEmptyString } from '@/utils/isEmptyString';
+import { validateHTML } from '@/utils/validateHTML';
 import { useState } from 'react';
 import { useLoading } from 'react-simplikit';
 
@@ -15,13 +16,19 @@ export default function HTMLInput({ onConvert }: Props) {
 
   const handleConvert = async () => {
     setError(null);
+    const [validationResult, validationMessage] = validateHTML(htmlCode);
+    if (validationResult === false) {
+      setError(validationMessage);
+      return;
+    }
+
     if (!user) {
       login();
       return;
     }
 
     const res = await startLoading(
-      fetch('/api/embed', {
+      fetch('/api/widgets', {
         method: 'POST',
         body: JSON.stringify({ html: htmlCode }),
       }),

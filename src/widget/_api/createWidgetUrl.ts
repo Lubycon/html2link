@@ -7,7 +7,7 @@ const REPO_OWNER = 'lubycon';
 const REPO = 'notion-embed';
 const BRANCH = 'main';
 
-export async function POST(req: NextRequest) {
+export async function createWidgetUrl(req: NextRequest) {
   const { html } = await req.json();
 
   const [validationResult, validationMessage] = validateHTML(html);
