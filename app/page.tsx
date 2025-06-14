@@ -1,5 +1,6 @@
 'use client';
 
+import { clipboard } from '@/utils/clipboard';
 import { isEmptyString } from '@/utils/isEmptyString';
 import type { User } from '@supabase/supabase-js';
 import { overlay } from 'overlay-kit';
@@ -26,7 +27,14 @@ export default function Home() {
       method: 'POST',
       body: JSON.stringify({ html: htmlCode }),
     });
+
     const data = await res.json();
+    if (data.error != null) {
+      alert(data.error);
+      return;
+    }
+
+    alert('따끈따끈한 URL이 구워졌어요');
     setEmbedUrl(data.url);
   };
 
@@ -73,6 +81,15 @@ export default function Home() {
             <a href={embedUrl} target="_blank" rel="noreferrer">
               <pre>{embedUrl}</pre>
             </a>
+            <button
+              type="button"
+              onClick={() => {
+                clipboard.writeText(embedUrl);
+                alert('URL이 복사되었어요.');
+              }}
+            >
+              복사하기
+            </button>
           </div>
         </div>
       )}
