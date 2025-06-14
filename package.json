@@ -15,7 +15,8 @@
     "next": "15.3.3",
     "overlay-kit": "^1.8.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-simplikit": "^0.0.39"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

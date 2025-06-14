@@ -40,7 +40,7 @@ export default function GoogleLoginModal({ open, onClose }: { open: boolean; onC
             marginBottom: '16px',
           }}
         >
-          로그인이 필요합니다
+          Tell us who you are to create your widget
         </h2>
         <button
           type="button"
@@ -48,9 +48,9 @@ export default function GoogleLoginModal({ open, onClose }: { open: boolean; onC
             width: '100%',
             padding: '8px 16px',
             fontSize: '14px',
-            background: '#ffffff',
-            color: '#37352f',
-            border: '1px solid #e9e9e9',
+            background: '#0064FF',
+            border: 'none',
+            color: '#fff',
             borderRadius: '3px',
             fontWeight: '500',
             cursor: 'pointer',
@@ -63,7 +63,7 @@ export default function GoogleLoginModal({ open, onClose }: { open: boolean; onC
             }
           }}
         >
-          Google 계정으로 로그인
+          Log in with Google
         </button>
         <div style={{ marginTop: '16px' }}>
           <button
@@ -80,7 +80,7 @@ export default function GoogleLoginModal({ open, onClose }: { open: boolean; onC
               transition: 'background-color 0.2s',
             }}
           >
-            닫기
+            Close
           </button>
         </div>
       </div>
