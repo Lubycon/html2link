@@ -24,23 +24,37 @@ export default function GoogleLoginModal({ open, onClose }: { open: boolean; onC
     >
       <div
         style={{
-          background: 'white',
-          padding: 30,
-          borderRadius: 8,
-          minWidth: 280,
+          background: '#ffffff',
+          padding: '24px',
+          borderRadius: '3px',
+          minWidth: '280px',
           textAlign: 'center',
+          border: '1px solid #e9e9e9',
         }}
       >
-        <h2>로그인이 필요합니다</h2>
+        <h2
+          style={{
+            color: '#37352f',
+            fontSize: '16px',
+            fontWeight: '600',
+            marginBottom: '16px',
+          }}
+        >
+          로그인이 필요합니다
+        </h2>
         <button
           type="button"
           style={{
-            marginTop: 20,
-            padding: '8px 20px',
-            fontSize: 18,
-            background: '#4285F4',
-            color: 'white',
-            borderRadius: 4,
+            width: '100%',
+            padding: '8px 16px',
+            fontSize: '14px',
+            background: '#ffffff',
+            color: '#37352f',
+            border: '1px solid #e9e9e9',
+            borderRadius: '3px',
+            fontWeight: '500',
+            cursor: 'pointer',
+            transition: 'background-color 0.2s',
           }}
           onClick={async () => {
             const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
@@ -51,8 +65,21 @@ export default function GoogleLoginModal({ open, onClose }: { open: boolean; onC
         >
           Google 계정으로 로그인
         </button>
-        <div style={{ marginTop: 18 }}>
-          <button type="button" onClick={onClose} style={{ color: '#888' }}>
+        <div style={{ marginTop: '16px' }}>
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              color: '#787774',
+              background: 'none',
+              border: 'none',
+              fontSize: '13px',
+              cursor: 'pointer',
+              padding: '4px 8px',
+              borderRadius: '3px',
+              transition: 'background-color 0.2s',
+            }}
+          >
             닫기
           </button>
         </div>
