@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Providers from 'src/Providers';
 
 export const metadata: Metadata = {
   title: 'HTML 2 Url',
@@ -12,7 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

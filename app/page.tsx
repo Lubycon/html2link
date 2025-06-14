@@ -1,10 +1,42 @@
 'use client';
 
-import { useState } from 'react';
+import { isEmptyString } from '@/utils/isEmptyString';
+import type { User } from '@supabase/supabase-js';
+import { overlay } from 'overlay-kit';
+import { useEffect, useState } from 'react';
+import GoogleLoginModal from 'src/auth/GoogleLogInModal';
+import { supabase } from 'src/supabase';
 
 export default function Home() {
   const [htmlCode, setHtmlCode] = useState('');
   const [embedUrl, setEmbedUrl] = useState('');
+  const [user, setUser] = useState<User | null>(null);
+
+  const login = () => {
+    overlay.open(({ isOpen, close }) => <GoogleLoginModal open={isOpen} onClose={close} />);
+  };
+
+  const handleConvert = async () => {
+    if (!user) {
+      login();
+      return;
+    }
+
+    const res = await fetch('/api/embed', {
+      method: 'POST',
+      body: JSON.stringify({ html: htmlCode }),
+    });
+    const data = await res.json();
+    setEmbedUrl(data.url);
+  };
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      setUser(data.user);
+    };
+    getUser();
+  }, []);
 
   return (
     <main>
@@ -21,20 +53,13 @@ export default function Home() {
       />
       <button
         type="button"
-        onClick={async () => {
-          const res = await fetch('/api/embed', {
-            method: 'POST',
-            body: JSON.stringify({ html: htmlCode }),
-          });
-
-          const data = await res.json();
-          setEmbedUrl(data.url);
-        }}
+        onClick={handleConvert}
         style={{
           width: '100%',
           height: 50,
           fontSize: 20,
         }}
+        disabled={isEmptyString(htmlCode)}
       >
         변환하기
       </button>
