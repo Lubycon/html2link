@@ -1,6 +1,5 @@
 'use client';
 
-import { getHost } from '@/utils/env';
 import { supabase } from 'src/supabase';
 
 export default function GoogleLoginModal({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -61,7 +60,7 @@ export default function GoogleLoginModal({ open, onClose }: { open: boolean; onC
             const { error } = await supabase.auth.signInWithOAuth({
               provider: 'google',
               options: {
-                redirectTo: getHost(),
+                redirectTo: 'https://html2link.lubycon.io/',
               },
             });
             if (error) {
