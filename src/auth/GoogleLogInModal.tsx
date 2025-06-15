@@ -1,5 +1,6 @@
 'use client';
 
+import { getHost } from '@/utils/env';
 import { supabase } from 'src/supabase';
 
 export default function GoogleLoginModal({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -57,7 +58,12 @@ export default function GoogleLoginModal({ open, onClose }: { open: boolean; onC
             transition: 'background-color 0.2s',
           }}
           onClick={async () => {
-            const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+            const { error } = await supabase.auth.signInWithOAuth({
+              provider: 'google',
+              options: {
+                redirectTo: getHost(),
+              },
+            });
             if (error) {
               alert(error.message);
             }
