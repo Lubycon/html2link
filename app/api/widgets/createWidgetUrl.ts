@@ -1,6 +1,6 @@
 import { createHash } from 'crypto';
-import { validateHTML } from '@/utils/validateHTML';
 import { App } from '@octokit/app';
+import { validateHTML } from 'app/utils/validateHTML';
 import { type NextRequest, NextResponse } from 'next/server';
 
 const GITHUB_API = 'https://api.github.com';

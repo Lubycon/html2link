@@ -1,1 +1,1 @@
-export { default } from '@/widget/pages/CreateWidgetUrlPage';
+export { default } from 'app/widget/pages/CreateWidgetUrlPage';

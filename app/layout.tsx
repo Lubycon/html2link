@@ -1,5 +1,5 @@
+import Providers from 'app/Providers';
 import type { Metadata } from 'next';
-import Providers from 'src/Providers';
 
 export const metadata: Metadata = {
   title: 'HTML 2 Url',

@@ -1,6 +1,6 @@
-import GoogleLoginModal from '@/auth/GoogleLogInModal';
-import { supabase } from '@/supabase';
 import type { User } from '@supabase/supabase-js';
+import GoogleLoginModal from 'app/auth/GoogleLogInModal';
+import { supabase } from 'app/supabase';
 import { overlay } from 'overlay-kit';
 import { createContext, useContext, useState } from 'react';
 import { useAsyncEffect } from 'react-simplikit';

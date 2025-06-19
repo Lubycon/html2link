@@ -1,6 +1,6 @@
 'use client';
 
-import { supabase } from 'src/supabase';
+import { supabase } from 'app/supabase';
 
 export default function GoogleLoginModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   if (!open) {

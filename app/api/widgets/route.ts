@@ -1,4 +1,4 @@
-import { createWidgetUrl } from '@/widget/_api/createWidgetUrl';
+import { createWidgetUrl } from 'app/api/widgets/createWidgetUrl';
 import type { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {

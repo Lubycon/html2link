@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from '@/common/AuthContext';
+import { useAuth } from 'app/common/AuthContext';
 import Image from 'next/image';
 import { useRef } from 'react';
 import { useBooleanState, useOutsideClickEffect } from 'react-simplikit';

@@ -1,6 +1,6 @@
-import { useAuth } from '@/common/AuthContext';
-import { isEmptyString } from '@/utils/isEmptyString';
-import { validateHTML } from '@/utils/validateHTML';
+import { useAuth } from 'app/common/AuthContext';
+import { isEmptyString } from 'app/utils/isEmptyString';
+import { validateHTML } from 'app/utils/validateHTML';
 import { useState } from 'react';
 import { useLoading } from 'react-simplikit';
 

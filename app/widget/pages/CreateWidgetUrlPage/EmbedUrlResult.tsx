@@ -1,4 +1,4 @@
-import { clipboard } from '@/utils/clipboard';
+import { clipboard } from 'app/utils/clipboard';
 
 interface Props {
   url: string;
