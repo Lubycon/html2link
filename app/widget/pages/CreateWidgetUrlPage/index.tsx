@@ -1,22 +1,16 @@
 'use client';
 
 import { useAuth } from 'app/common/AuthContext';
-import { isIframe } from 'app/utils/env';
 import Image from 'next/image';
 import { useState } from 'react';
 import Avatar from './Avatar';
 import EmbedResult from './EmbedUrlResult';
 import HTMLInput from './HTMLInput';
-import IframeGuide from './IframeGuide';
 
 export default function CreateWidgetUrlPage() {
   const [embedUrl, setEmbedUrl] = useState('');
   const { user, logout } = useAuth();
   const avatarUrl = user?.user_metadata?.avatar_url ?? 'https://www.gravatar.com/avatar/?d=identicon';
-
-  if (user == null && isIframe()) {
-    return <IframeGuide />;
-  }
 
   return (
     <main
