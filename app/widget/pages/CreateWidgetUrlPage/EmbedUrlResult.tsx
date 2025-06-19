@@ -1,3 +1,4 @@
+import { trackEvent } from 'app/utils/amplitude';
 import { clipboard } from 'app/utils/clipboard';
 
 interface Props {
@@ -43,6 +44,7 @@ export default function EmbedUrlResult({ url }: Props) {
         type="button"
         onClick={() => {
           clipboard.writeText(url);
+          trackEvent('Copy Widget Link', { url });
           alert('Link copied!');
         }}
         style={{

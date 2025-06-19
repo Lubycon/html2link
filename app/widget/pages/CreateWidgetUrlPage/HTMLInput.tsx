@@ -1,4 +1,5 @@
 import { useAuth } from 'app/common/AuthContext';
+import { trackEvent } from 'app/utils/amplitude';
 import { isEmptyString } from 'app/utils/isEmptyString';
 import { validateHTML } from 'app/utils/validateHTML';
 import { useState } from 'react';
@@ -26,6 +27,9 @@ export default function HTMLInput({ onConvert }: Props) {
       login();
       return;
     }
+
+    // Amplitude 이벤트 트래킹
+    trackEvent('Submit Widget HTML');
 
     const res = await startLoading(
       fetch('/api/widgets', {

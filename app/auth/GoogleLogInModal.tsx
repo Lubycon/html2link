@@ -1,8 +1,17 @@
 'use client';
 
 import { supabase } from 'app/supabase';
+import { trackEvent } from 'app/utils/amplitude';
+import { getHost } from 'app/utils/env';
+import { useEffect } from 'react';
 
 export default function GoogleLoginModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  useEffect(() => {
+    if (open) {
+      trackEvent('Impression Google Login Modal');
+    }
+  }, [open]);
+
   if (!open) {
     return null;
   }
@@ -57,10 +66,11 @@ export default function GoogleLoginModal({ open, onClose }: { open: boolean; onC
             transition: 'background-color 0.2s',
           }}
           onClick={async () => {
+            trackEvent('Click Google Login Modal Button', { payload: true });
             const { error } = await supabase.auth.signInWithOAuth({
               provider: 'google',
               options: {
-                redirectTo: 'https://html2link.lubycon.io/',
+                redirectTo: getHost(),
               },
             });
             if (error) {
@@ -73,7 +83,10 @@ export default function GoogleLoginModal({ open, onClose }: { open: boolean; onC
         <div style={{ marginTop: '16px' }}>
           <button
             type="button"
-            onClick={onClose}
+            onClick={() => {
+              trackEvent('Click Google Login Modal Button', { payload: false });
+              onClose();
+            }}
             style={{
               color: '#787774',
               background: 'none',
