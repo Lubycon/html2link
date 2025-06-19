@@ -14,7 +14,6 @@ function IframeGuide() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '60vh',
       }}
     >
       <div style={{ fontSize: 18, fontWeight: 600, marginBottom: 24, textAlign: 'center' }}>
@@ -24,8 +23,7 @@ function IframeGuide() {
         type="button"
         style={{
           width: '100%',
-          height: 52,
-          fontSize: 16,
+          padding: 12,
           color: '#222',
           backgroundColor: '#D5E7F2',
           border: '1px solid #b5c9d3',
@@ -37,13 +35,10 @@ function IframeGuide() {
           gap: 10,
           transition: 'background 0.2s',
           letterSpacing: '0.5px',
-          marginBottom: 24,
-          fontWeight: 600,
-          maxWidth: 320,
         }}
         onClick={() => window.open('https://html2link.lubycon.io', '_blank', 'noopener,noreferrer')}
       >
-        Open Linkify in New Window
+        🔗 Open Linkify in New Window
       </button>
     </main>
   );
