@@ -1,6 +1,6 @@
 'use client';
 
-import Header from '@/common/Header';
+import Image from 'next/image';
 import { useState } from 'react';
 import EmbedResult from './EmbedUrlResult';
 import HTMLInput from './HTMLInput';
@@ -11,32 +11,24 @@ export default function CreateWidgetUrlPage() {
   return (
     <main
       style={{
-        maxWidth: '100%',
-        padding: '20px',
+        maxWidth: '600px',
+        margin: '0 auto',
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        backgroundColor: '#ffffff',
-        minHeight: '100vh',
         color: '#37352f',
+        background: '#fff',
+        padding: '32px',
+        border: '1px solid #e9e9e9',
+        borderRadius: 10,
       }}
     >
-      <Header />
-      <div style={{ marginTop: '80px' }}>
-        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
-          <h1
-            style={{
-              fontSize: '24px',
-              textAlign: 'center',
-              marginBottom: '24px',
-              color: '#37352f',
-              fontWeight: '600',
-              letterSpacing: '-0.5px',
-            }}
-          >
-            🧩 Notion HTML Embed Converter
-          </h1>
-          <HTMLInput onConvert={setEmbedUrl} />
-          {embedUrl && <EmbedResult url={embedUrl} />}
-        </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+        <Image src="/linkify-logo.png" alt="Linkify" width={28} height={28} />
+        <span style={{ fontWeight: 700, fontSize: 20, letterSpacing: -1 }}>Linkify</span>
+        <span style={{ color: '#0064FF', fontWeight: 500, fontSize: 14, marginLeft: 8 }}>for Notion</span>
+      </div>
+      <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
+        <HTMLInput onConvert={setEmbedUrl} />
+        {embedUrl && <EmbedResult url={embedUrl} />}
       </div>
     </main>
   );

@@ -27,7 +27,6 @@ export default function Header() {
         right: 0,
         height: '60px',
         backgroundColor: '#ffffff',
-        borderBottom: '1px solid #e9e9e9',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',

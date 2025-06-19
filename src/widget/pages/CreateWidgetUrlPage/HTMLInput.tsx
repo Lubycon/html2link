@@ -60,23 +60,22 @@ export default function HTMLInput({ onConvert }: Props) {
         </div>
       )}
       <textarea
-        placeholder="Enter your HTML code here"
+        placeholder="Paste your HTML code here"
         value={htmlCode}
         onChange={(e) => setHtmlCode(e.target.value)}
         style={{
           width: '100%',
-          height: 200,
-          resize: 'none',
-          padding: '16px',
-          borderRadius: '3px',
+          minHeight: 120,
           border: '1px solid #e9e9e9',
-          fontSize: '14px',
-          backgroundColor: '#ffffff',
+          borderRadius: 6,
+          padding: 16,
+          fontSize: 15,
+          background: '#fff',
           color: '#37352f',
-          boxShadow: 'none',
-          marginBottom: '16px',
+          marginBottom: 16,
+          boxSizing: 'border-box',
+          resize: 'none',
           outline: 'none',
-          transition: 'border-color 0.2s',
         }}
       />
       <button
@@ -84,17 +83,21 @@ export default function HTMLInput({ onConvert }: Props) {
         onClick={handleConvert}
         style={{
           width: '100%',
-          height: 48,
-          fontSize: '14px',
-          backgroundColor: '#0064FF',
-          color: '#ffffff',
-          border: 'none',
-          borderRadius: '3px',
-          fontWeight: '500',
+          height: 52,
+          fontSize: 16,
+          color: '#222',
+          backgroundColor: '#D5E7F2',
+          border: '1px solid #b5c9d3',
+          borderRadius: 10,
           cursor: isLoading ? 'not-allowed' : 'pointer',
-          transition: 'all 0.2s',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 10,
+          transition: 'background 0.2s',
           opacity: isLoading ? '0.7' : isEmptyString(htmlCode) ? '0.5' : '1',
           letterSpacing: '0.5px',
+          marginBottom: 24,
         }}
         disabled={isEmptyString(htmlCode) || isLoading}
       >
@@ -103,7 +106,7 @@ export default function HTMLInput({ onConvert }: Props) {
             <span className="spinner" aria-hidden="true" /> Converting...
           </>
         ) : (
-          'Convert'
+          <>Get Your Widget Link</>
         )}
       </button>
     </>
