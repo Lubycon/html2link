@@ -7,31 +7,31 @@ const GITHUB_API = 'https://api.github.com';
 const REPO_OWNER = 'lubycon';
 const REPO = 'notion-embed';
 
+const appId = process.env.GITHUB_APP_ID;
+const privateKey = process.env.GITHUB_PRIVATE_KEY;
+const installationId = process.env.GITHUB_INSTALLATION_ID;
+
+if (!appId || !privateKey || !installationId) {
+  throw new Error('Required environment variables are not set');
+}
+
+const app = new App({ appId, privateKey });
+
+async function getOctokit() {
+  try {
+    const octokit = await app.getInstallationOctokit(Number(installationId));
+    return octokit;
+  } catch (error) {
+    console.error('Failed to generate Installation Access Token:', {
+      error,
+      appId,
+      installationId,
+    });
+    throw error;
+  }
+}
+
 export async function createWidgetUrl(req: NextRequest) {
-  const appId = process.env.GITHUB_APP_ID;
-  const privateKey = process.env.GITHUB_PRIVATE_KEY;
-  const installationId = process.env.GITHUB_INSTALLATION_ID;
-
-  if (!appId || !privateKey || !installationId) {
-    throw new Error('Required environment variables are not set');
-  }
-
-  const app = new App({ appId, privateKey });
-
-  async function getOctokit() {
-    try {
-      const octokit = await app.getInstallationOctokit(Number(installationId));
-      return octokit;
-    } catch (error) {
-      console.error('Failed to generate Installation Access Token:', {
-        error,
-        appId,
-        installationId,
-      });
-      throw error;
-    }
-  }
-
   const { html } = await req.json();
 
   const [validationResult, validationMessage] = validateHTML(html);
