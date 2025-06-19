@@ -2,8 +2,10 @@ import { useAuth } from 'app/common/AuthContext';
 import { trackEvent } from 'app/utils/amplitude';
 import { isEmptyString } from 'app/utils/isEmptyString';
 import { validateHTML } from 'app/utils/validateHTML';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLoading } from 'react-simplikit';
+
+const storageKey = 'htmlInputValue';
 
 interface Props {
   onConvert: (resultUrl: string) => void;
@@ -15,6 +17,14 @@ export default function HTMLInput({ onConvert }: Props) {
   const [htmlCode, setHtmlCode] = useState('');
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    const saved = localStorage.getItem(storageKey);
+    if (saved !== null) {
+      setHtmlCode(saved);
+      localStorage.removeItem(storageKey);
+    }
+  }, []);
+
   const handleConvert = async () => {
     setError(null);
     const [validationResult, validationMessage] = validateHTML(htmlCode);
@@ -24,6 +34,7 @@ export default function HTMLInput({ onConvert }: Props) {
     }
 
     if (!user) {
+      localStorage.setItem(storageKey, htmlCode);
       login();
       return;
     }
