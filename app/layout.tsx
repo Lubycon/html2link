@@ -1,9 +1,12 @@
 import Providers from 'app/Providers';
 import type { Metadata } from 'next';
 
+const title = 'Linkify [Embed Wizard]';
+const description = 'Free Convert HTML to URL for notion embeding';
+
 export const metadata: Metadata = {
-  title: 'Linkify',
-  description: 'Free Convert HTML to URL for notion embeding',
+  title,
+  description,
 };
 
 export default function RootLayout({
@@ -17,16 +20,19 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#D5E7F2" />
-        <meta property="og:title" content="Linkify for Notion" />
-        <meta property="og:description" content="Free Convert HTML to URL for Notion embedding" />
+
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://html2link.lubycon.io/" />
         <meta property="og:image" content="https://html2link.lubycon.io/og_image.png" />
+
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="HTML 2 Url" />
-        <meta name="twitter:description" content="Free Convert HTML to URL for Notion embedding" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content="https://html2link.lubycon.io/og_image.png" />
-        <link rel="icon" href="/favicon.ico" />
+
+        <link rel="icon" type="image/png" href="/linkify-logo.png" />
       </head>
       <body>
         <Providers>{children}</Providers>
