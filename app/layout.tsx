@@ -33,6 +33,7 @@ export default function RootLayout({
         <meta name="twitter:image" content="https://html2link.lubycon.io/og_image.png" />
 
         <link rel="icon" type="image/png" href="/linkify-logo.png" />
+        <meta name="google-adsense-account" content="ca-pub-4113746985528013" />
       </head>
       <body>
         <Providers>{children}</Providers>
