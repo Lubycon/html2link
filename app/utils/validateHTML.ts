@@ -11,8 +11,15 @@ export function validateHTML(html: string): ValidationResponse {
       return [false, 'No valid HTML tags were found.'];
     }
 
-    if ($('script').length > 0 && !hasHtmlTag) {
-      return [false, 'Script file uploads are not allowed.'];
+    const scriptTags = $('script');
+    let hasInlineScript = false;
+    scriptTags.each((_, el) => {
+      if (!$(el).attr('src')) {
+        hasInlineScript = true;
+      }
+    });
+    if (hasInlineScript) {
+      return [false, 'Inline <script> tags are not allowed. Only <script src="..."> is permitted.'];
     }
   } catch {
     return [false, 'Invalid HTML code.'];
