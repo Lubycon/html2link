@@ -44,9 +44,8 @@ export default function LinkifyMain() {
         }}
       >
         {WIDGETS.map((w) => (
-          <Link key={w.link} href={w.link}>
+          <Link key={w.link} href={w.link} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div
-              key={w.name}
               style={{
                 background: '#fff',
                 borderRadius: 18,
@@ -57,7 +56,7 @@ export default function LinkifyMain() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 transition: 'box-shadow 0.2s',
-                minHeight: 320,
+                minHeight: 180,
               }}
             >
               <div style={{ fontWeight: 700, fontSize: 22, marginBottom: 8 }}>{w.name}</div>
@@ -66,7 +65,6 @@ export default function LinkifyMain() {
           </Link>
         ))}
       </main>
-      {/* 푸터 */}
       <footer
         style={{
           textAlign: 'center',
