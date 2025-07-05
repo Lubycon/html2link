@@ -1,38 +1,40 @@
-import React from 'react';
+'use client';
 
 import Tick from '@pqina/flip';
+import React, { useRef, useEffect } from 'react';
 import '@pqina/flip/dist/flip.min.css';
+import './Flip.css';
 
-export default class Flip extends React.Component {
-  constructor(props) {
-    super(props);
-    this._tickRef = React.createRef();
-    this._tickInstance = null;
-  }
+export default function Flip({ value, size }) {
+  const divRef = useRef();
+  const tickRef = useRef();
 
-  componentDidMount() {
-    this._tickInstance = Tick.DOM.create(this._tickRef.current, {
-      value: this.props.value,
+  useEffect(() => {
+    const didInit = (tick) => {
+      tickRef.current = tick;
+    };
+
+    const currDiv = divRef.current;
+    Tick.DOM.create(currDiv, {
+      value,
+      didInit,
     });
-  }
 
-  componentDidUpdate() {
-    if (!this._tickInstance) return;
-    this._tickInstance.value = this.props.value;
-  }
+    return () => Tick.DOM.destroy(tickRef.current);
+  }, [value]);
 
-  componentWillUnmount() {
-    if (!this._tickInstance) return;
-    Tick.DOM.destroy(this._tickRef.current);
-  }
+  useEffect(() => {
+    if (tickRef.current) {
+      tickRef.current.value = value;
+    }
+  }, [value]);
 
-  render() {
-    return (
-      <div ref={this._tickRef} className="tick" style={{ fontSize: '3rem' }}>
-        <div data-repeat="true" aria-hidden="true">
-          <span data-view="flip">Tick</span>
-        </div>
+  const className = ['tick', size].join(' ');
+  return (
+    <div ref={divRef} className={className}>
+      <div data-repeat="true">
+        <span data-view="flip" />
       </div>
-    );
-  }
+    </div>
+  );
 }

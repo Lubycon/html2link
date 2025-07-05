@@ -1,5 +1,6 @@
 import Providers from 'app/Providers';
 import type { Metadata } from 'next';
+import 'normalize.css';
 
 const title = 'Linkify [Embed Wizard]';
 const description = 'Free Convert HTML to URL for notion embeding';
@@ -34,6 +35,10 @@ export default function RootLayout({
 
         <link rel="icon" type="image/png" href="/linkify-logo.png" />
         <meta name="google-adsense-account" content="ca-pub-4113746985528013" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
       </head>
       <body>
         <Providers>{children}</Providers>

@@ -24,6 +24,6 @@
       "src/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/widget/flip-clock/Flip.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/flip-clock/Flip.jsx"],
   "exclude": ["node_modules"]
 }
