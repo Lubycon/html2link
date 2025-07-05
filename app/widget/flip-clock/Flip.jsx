@@ -1,6 +1,5 @@
 'use client';
 
-import Tick from '@pqina/flip';
 import React, { useRef, useEffect } from 'react';
 import '@pqina/flip/dist/flip.min.css';
 import './Flip.css';
@@ -8,19 +7,34 @@ import './Flip.css';
 export default function Flip({ value, size }) {
   const divRef = useRef();
   const tickRef = useRef();
+  const TickRef = useRef();
 
   useEffect(() => {
-    const didInit = (tick) => {
-      tickRef.current = tick;
-    };
+    let isMounted = true;
 
-    const currDiv = divRef.current;
-    Tick.DOM.create(currDiv, {
-      value,
-      didInit,
+    import('@pqina/flip').then((mod) => {
+      if (!isMounted) return;
+      const Tick = mod.default || mod;
+      TickRef.current = Tick;
+      if (!Tick?.DOM) return;
+
+      const didInit = (tick) => {
+        tickRef.current = tick;
+      };
+
+      const currDiv = divRef.current;
+      Tick.DOM.create(currDiv, {
+        value,
+        didInit,
+      });
     });
 
-    return () => Tick.DOM.destroy(tickRef.current);
+    return () => {
+      isMounted = false;
+      if (tickRef.current && TickRef.current?.DOM) {
+        TickRef.current.DOM.destroy(tickRef.current);
+      }
+    };
   }, [value]);
 
   useEffect(() => {
