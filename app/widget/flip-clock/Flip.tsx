@@ -6,9 +6,9 @@ import './Flip.css';
 
 interface Props {
   value: string | string[];
-  size: 'lg' | 'md' | 'sm';
+  size?: 'lg' | 'md' | 'sm';
 }
-export default function Flip({ value, size }: Props) {
+export default function Flip({ value, size = 'md' }: Props) {
   const divRef = useRef<HTMLDivElement>(null);
 
   const TickRef = useRef<Tick>(null); // Class
