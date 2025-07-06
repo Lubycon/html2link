@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useInterval } from 'react-simplikit';
 import Flip from './Flip';
 
 function getTimeParts() {
@@ -44,22 +45,19 @@ function getDateString(date: Date) {
 const Clock = () => {
   const [clock, setClock] = useState(getTimeParts());
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setClock(getTimeParts());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  useInterval(() => {
+    setClock(getTimeParts());
+  }, 1000);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div style={{ display: 'flex' }}>
-        <Flip value={[clock.hours, clock.minutes, clock.seconds]} size="large" />
+        <Flip value={[clock.hours, clock.minutes, clock.seconds]} size="lg" />
         <div style={{ display: 'inline-flex', flexDirection: 'column', alignContent: 'flex-start', marginLeft: 8 }}>
           <div style={{ marginLeft: 2, fontFamily: 'Anton, sans-serif', fontSize: 18, margin: '9px 0 9px 2px' }}>
             {clock.timezone}
           </div>
-          <Flip value={[clock.ampm]} size="medium" />
+          <Flip value={[clock.ampm]} />
         </div>
       </div>
       <div style={{ fontWeight: 700, fontFamily: 'Anton, sans-serif', fontSize: 24, marginTop: 18 }}>
