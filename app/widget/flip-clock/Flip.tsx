@@ -4,26 +4,36 @@ import React, { useRef, useEffect } from 'react';
 import '@pqina/flip/dist/flip.min.css';
 import './Flip.css';
 
-export default function Flip({ value, size }) {
-  const divRef = useRef();
-  const tickRef = useRef();
-  const TickRef = useRef();
+interface Props {
+  value: string | string[];
+  size?: 'lg' | 'md' | 'sm';
+}
+export default function Flip({ value, size = 'md' }: Props) {
+  const divRef = useRef<HTMLDivElement>(null);
+  const tickRef = useRef<Tick>(null);
 
   useEffect(() => {
     let isMounted = true;
 
     import('@pqina/flip').then((mod) => {
       if (!isMounted) return;
-      const Tick = mod.default || mod;
-      TickRef.current = Tick;
-      if (!Tick?.DOM) return;
+      const Tick = (mod.default ?? mod) as Tick;
+      tickRef.current = Tick;
 
-      const didInit = (tick) => {
+      if (Tick?.DOM == null) {
+        return;
+      }
+
+      const didInit = (tick: Tick) => {
         tickRef.current = tick;
       };
 
-      const currDiv = divRef.current;
-      Tick.DOM.create(currDiv, {
+      const currentDiv = divRef.current;
+      if (currentDiv == null) {
+        return;
+      }
+
+      Tick.DOM.create(currentDiv, {
         value,
         didInit,
       });
@@ -31,9 +41,7 @@ export default function Flip({ value, size }) {
 
     return () => {
       isMounted = false;
-      if (tickRef.current && TickRef.current?.DOM) {
-        TickRef.current.DOM.destroy(tickRef.current);
-      }
+      tickRef?.current?.DOM?.destroy(tickRef.current);
     };
   }, [value]);
 
@@ -43,7 +51,8 @@ export default function Flip({ value, size }) {
     }
   }, [value]);
 
-  const className = ['tick', size].join(' ');
+  const className = `tick ${size}`;
+
   return (
     <div ref={divRef} className={className}>
       <div data-repeat="true">
