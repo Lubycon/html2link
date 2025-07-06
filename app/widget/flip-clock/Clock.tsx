@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useInterval } from 'react-simplikit';
 import Flip from './Flip';
+import './Clock.css';
 
 function getTimeParts() {
   const now = new Date();
@@ -50,19 +51,15 @@ const Clock = () => {
   }, 1000);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div style={{ display: 'flex' }}>
+    <div className="clock-root">
+      <div className="clock-row">
         <Flip value={[clock.hours, clock.minutes, clock.seconds]} size="lg" />
-        <div style={{ display: 'inline-flex', flexDirection: 'column', alignContent: 'flex-start', marginLeft: 8 }}>
-          <div style={{ marginLeft: 2, fontFamily: 'Anton, sans-serif', fontSize: 18, margin: '9px 0 9px 2px' }}>
-            {clock.timezone}
-          </div>
+        <div className="clock-meta">
+          <div className="clock-timezone">{clock.timezone}</div>
           <Flip value={[clock.ampm]} />
         </div>
       </div>
-      <div style={{ fontWeight: 700, fontFamily: 'Anton, sans-serif', fontSize: 24, marginTop: 18 }}>
-        {getDateString(clock.date)}
-      </div>
+      <div className="clock-date">{getDateString(clock.date)}</div>
     </div>
   );
 };

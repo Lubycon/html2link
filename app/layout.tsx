@@ -1,6 +1,7 @@
 import Providers from 'app/Providers';
 import type { Metadata } from 'next';
 import 'normalize.css';
+import './global.css';
 
 const title = 'Linkify [Embed Wizard]';
 const description = 'Free Convert HTML to URL for notion embeding';
