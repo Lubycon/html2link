@@ -39,7 +39,6 @@ export function useDarkMode() {
     setIsDark(getDarkByMedia() || getDarkByBg());
     mq.addEventListener('change', handler);
 
-    // body 배경색 변경 감지
     const observer = new MutationObserver(() => {
       setIsDark(getDarkByMedia() || getDarkByBg());
     });
