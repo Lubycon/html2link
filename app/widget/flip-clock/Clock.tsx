@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useInterval } from 'react-simplikit';
 import Flip from './Flip';
 import './Clock.css';
+import { useDarkMode } from 'app/utils/hooks/useDarkMode';
 
 function getTimeParts() {
   const now = new Date();
@@ -45,13 +46,28 @@ function getDateString(date: Date) {
 
 const Clock = () => {
   const [clock, setClock] = useState(getTimeParts());
+  const isDarkMode = useDarkMode();
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useInterval(() => {
     setClock(getTimeParts());
   }, 1000);
 
+  useEffect(() => {
+    const root = rootRef.current;
+    if (root == null) {
+      return;
+    }
+
+    if (isDarkMode) {
+      root.classList.add('dark-mode');
+    } else {
+      root.classList.remove('dark-mode');
+    }
+  }, [isDarkMode]);
+
   return (
-    <div className="clock-root">
+    <div className="clock-root" ref={rootRef}>
       <div className="clock-row">
         <Flip value={[clock.hours, clock.minutes, clock.seconds]} size="lg" />
         <div className="clock-meta">

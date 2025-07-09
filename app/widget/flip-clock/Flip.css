@@ -26,9 +26,7 @@
   min-width: 6rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  .tick-flip-panel {
-    background: #fff;
-    color: #191919;
-  }
+.dark-mode .tick-flip-panel {
+  background: #fff;
+  color: #191919;
 }
