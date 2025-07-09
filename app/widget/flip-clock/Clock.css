@@ -31,11 +31,9 @@
   margin-top: 18px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .clock-timezone {
-    color: #fff;
-  }
-  .clock-date {
-    color: #fff;
-  }
+.dark-mode .clock-timezone {
+  color: #fff;
+}
+.dark-mode .clock-date {
+  color: #fff;
 }
