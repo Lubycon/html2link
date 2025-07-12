@@ -13,6 +13,11 @@ const WIDGETS = [
     description: 'HTML 코드로 위젯 링크를 생성하세요',
     link: '/widget/create-widget-link',
   },
+  {
+    name: 'Random Quotes',
+    description: '랜덤 명언 제조기',
+    link: '/widget/quotes',
+  },
 ];
 
 export default function LinkifyMain() {

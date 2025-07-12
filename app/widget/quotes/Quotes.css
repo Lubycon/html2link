@@ -1,0 +1,45 @@
+.quote-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #1d3f35;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  color: #fff;
+  min-height: 0;
+  word-break: break-word;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.quote-contents {
+  font-size: 3rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.quote-author {
+  font-size: 1.5rem;
+  color: #e0e0e0;
+  margin-top: 12px;
+  align-self: flex-end;
+}
+
+@media (max-width: 480px) {
+  .quote-box {
+    min-width: 250px;
+    padding: 20px;
+  }
+  .quote-contents {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+  .quote-author {
+    font-size: 1rem;
+    margin-top: 8px;
+  }
+}
