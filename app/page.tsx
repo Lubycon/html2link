@@ -18,6 +18,11 @@ const WIDGETS = [
     description: '랜덤 명언 제조기',
     link: '/widget/quotes',
   },
+  {
+    name: '뽀모도로 타이머',
+    description: '집중과 휴식을 반복하는 생산성 타이머',
+    link: '/widget/pomodoro',
+  },
 ];
 
 export default function LinkifyMain() {
