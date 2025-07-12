@@ -6,6 +6,7 @@
   display: inline-block;
   letter-spacing: normal;
 }
+
 .tick.lg {
   font-size: 4rem;
 }
@@ -29,4 +30,19 @@
 .dark-mode .tick-flip-panel {
   background: #fff;
   color: #191919;
+}
+
+@media (max-width: 600px) {
+  .tick {
+    font-size: 1rem;
+  }
+  .tick.lg {
+    font-size: 2rem;
+  }
+  .tick .tick-flip {
+    min-width: 2rem;
+  }
+  .tick.lg .tick-flip {
+    min-width: 3rem;
+  }
 }

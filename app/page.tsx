@@ -27,7 +27,7 @@ export default function LinkifyMain() {
           boxShadow: '0 2px 8px #0001',
         }}
       >
-        <span style={{ fontWeight: 900, fontSize: 28, color: '#2d72d9', letterSpacing: -1 }}>🖼️ Apption</span>
+        <span style={{ fontWeight: 900, fontSize: 28, color: '#2d72d9', letterSpacing: -1 }}>Linkify</span>
         <nav style={{ marginLeft: 'auto', display: 'flex', gap: 24 }}>
           <Link href="/" style={{ color: '#222', textDecoration: 'none', fontWeight: 500 }}>
             로그인

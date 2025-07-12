@@ -37,3 +37,15 @@
 .dark-mode .clock-date {
   color: #fff;
 }
+
+@media (max-width: 600px) {
+  .clock-timezone {
+    font-size: 0.8rem;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  .clock-date {
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+}
