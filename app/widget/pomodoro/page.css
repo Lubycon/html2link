@@ -1,5 +1,6 @@
 .pomodoro-root {
   min-height: 100vh;
+  background: #f8fafc;
   display: flex;
   flex-direction: column;
   align-items: center;

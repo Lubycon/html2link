@@ -5,12 +5,6 @@ export function useTimer(totalSeconds: number) {
   const [isRunning, setIsRunning] = useState(false);
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    setSeconds(totalSeconds);
-    setIsRunning(false);
-  }, [totalSeconds]);
-
   useEffect(() => {
     if (isRunning) {
       intervalRef.current = setInterval(() => {
