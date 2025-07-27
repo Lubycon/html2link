@@ -24,15 +24,14 @@ export default function Timer({ size, seconds, totalSeconds }: Props) {
   const ticks = useMemo(() => generateTicks(center, radius), [center, radius]);
 
   return (
-    <svg width={size} height={size} style={{ display: 'block', background: '#fff', borderRadius: '50%' }}>
+    <svg width={size} height={size} style={{ display: 'block' }}>
       <title>Pomodoro Timer Dial</title>
-      <circle cx={center} cy={center} r={radius} fill="#fff" stroke="#f8fafc" strokeWidth="2" />
-      <path d={arcPath} stroke="#e74c3c" strokeWidth="24" fill="none" />
+      <circle cx={center} cy={center} r={radius} fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
+      <path d={arcPath} stroke="#e53e3e" strokeWidth="6" fill="none" strokeLinecap="round" />
       {ticks}
-      <line x1={center} y1={center} x2={handX} y2={handY} stroke="#e74c3c" strokeWidth="6" strokeLinecap="round" />
-      <circle cx={center} cy={center} r="14" fill="#fff" />
-      <circle cx={center} cy={center} r="8" fill="#e74c3c" />
-      <text x={center} y={center + 60} textAnchor="middle" fontSize="32" fill="#222" fontFamily="sans-serif">
+      <line x1={center} y1={center} x2={handX} y2={handY} stroke="#e53e3e" strokeWidth="3" strokeLinecap="round" />
+      <circle cx={center} cy={center} r="6" fill="#fff" stroke="#e53e3e" strokeWidth="2" />
+      <text x={center} y={center + 8} textAnchor="middle" fontSize="36" fill="#2d3748" fontFamily="system-ui, -apple-system, sans-serif" fontWeight="600">
         {minutes}:{secs}
       </text>
     </svg>
@@ -58,16 +57,16 @@ function getArcPath(cx: number, cy: number, r: number, angle: number) {
 
 function generateTicks(center: number, radius: number) {
   const arr = [];
-  for (let i = 0; i < 60; i++) {
-    const tickAngle = (i * 360) / 60 - 90;
+  for (let i = 0; i < 12; i++) {
+    const tickAngle = (i * 360) / 12 - 90;
     const tickRad = (tickAngle * Math.PI) / 180;
     const outer = {
-      x: center + radius * Math.cos(tickRad),
-      y: center + radius * Math.sin(tickRad),
+      x: center + (radius - 8) * Math.cos(tickRad),
+      y: center + (radius - 8) * Math.sin(tickRad),
     };
     const inner = {
-      x: center + (radius - (i % 5 === 0 ? 16 : 8)) * Math.cos(tickRad),
-      y: center + (radius - (i % 5 === 0 ? 16 : 8)) * Math.sin(tickRad),
+      x: center + (radius - 20) * Math.cos(tickRad),
+      y: center + (radius - 20) * Math.sin(tickRad),
     };
     arr.push(
       <line
@@ -76,8 +75,9 @@ function generateTicks(center: number, radius: number) {
         y1={outer.y}
         x2={inner.x}
         y2={inner.y}
-        stroke="#222"
-        strokeWidth={i % 5 === 0 ? 3 : 1}
+        stroke="#cbd5e0"
+        strokeWidth={2}
+        strokeLinecap="round"
       />,
     );
   }

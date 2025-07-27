@@ -18,9 +18,9 @@ export default function PomodoroTimer() {
   };
 
   return (
-    <div className="pomodoro-root">
-      <div style={{ marginBottom: 24 }}>
-        <label htmlFor="pomodoro-minutes" style={{ marginRight: 8, fontWeight: 500 }}>
+    <div className="pomodoro-container">
+      <div className="timer-settings">
+        <label htmlFor="pomodoro-minutes" className="minutes-label">
           Minutes:
         </label>
         <input
@@ -29,29 +29,25 @@ export default function PomodoroTimer() {
           min={1}
           value={inputMinutes}
           onChange={handleMinutesChange}
-          style={{
-            width: 60,
-            padding: '6px 8px',
-            fontSize: 16,
-            borderRadius: 6,
-            border: '1px solid #ccc',
-            textAlign: 'right',
-          }}
+          className="minutes-input"
           disabled={isRunning}
         />
       </div>
+
       <div className="pomodoro-svg">
-        <Timer size={320} seconds={seconds} totalSeconds={totalSeconds} />
+        <Timer size={280} seconds={seconds} totalSeconds={totalSeconds} />
       </div>
+
       {isRunning === true ? (
         <button type="button" onClick={pause} className="pomodoro-start">
-          Pause
+          PAUSE SESSION
         </button>
       ) : (
         <button type="button" onClick={start} className="pomodoro-start">
           START SESSION
         </button>
       )}
+
       <div className="pomodoro-actions">
         <button type="button" onClick={reset} className="pomodoro-action">
           Reset
