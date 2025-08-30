@@ -23,6 +23,11 @@ const WIDGETS = [
     description: '집중과 휴식을 반복하는 생산성 타이머',
     link: '/widget/pomodoro',
   },
+  {
+    name: '계산기',
+    description: '계산기',
+    link: '/widget/calculator',
+  },
 ];
 
 export default function LinkifyMain() {
