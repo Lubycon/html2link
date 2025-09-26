@@ -2,7 +2,6 @@
 
 import { OverlayProvider } from 'overlay-kit';
 import { useEffect } from 'react';
-import { AuthProvider } from './common/AuthContext';
 import { initAmplitude } from './utils/amplitude';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -10,9 +9,5 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     initAmplitude();
   }, []);
 
-  return (
-    <AuthProvider>
-      <OverlayProvider>{children}</OverlayProvider>
-    </AuthProvider>
-  );
+  return <OverlayProvider>{children}</OverlayProvider>;
 }

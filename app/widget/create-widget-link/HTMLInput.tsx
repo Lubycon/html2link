@@ -1,4 +1,3 @@
-import { useAuth } from 'app/common/AuthContext';
 import { trackEvent } from 'app/utils/amplitude';
 import { isEmptyString } from 'app/utils/isEmptyString';
 import { validateHTML } from 'app/utils/validateHTML';
@@ -11,8 +10,6 @@ interface Props {
   onConvert: (resultUrl: string) => void;
 }
 export default function HTMLInput({ onConvert }: Props) {
-  const { user, login } = useAuth();
-
   const [isLoading, startLoading] = useLoading();
   const [htmlCode, setHtmlCode] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -33,13 +30,6 @@ export default function HTMLInput({ onConvert }: Props) {
       return;
     }
 
-    if (!user) {
-      localStorage.setItem(storageKey, htmlCode);
-      login();
-      return;
-    }
-
-    // Amplitude 이벤트 트래킹
     trackEvent('Submit Widget HTML');
 
     const res = await startLoading(

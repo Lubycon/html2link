@@ -34,7 +34,7 @@ const getLastOperatorIndex = (expression: string): number => {
     expression.lastIndexOf('+'),
     expression.lastIndexOf('-'),
     expression.lastIndexOf('×'),
-    expression.lastIndexOf('÷')
+    expression.lastIndexOf('÷'),
   );
 };
 
@@ -51,7 +51,7 @@ function calculatorReducer(state: CalculatorState, action: CalculatorAction): Ca
   switch (action.type) {
     case 'INPUT_NUMBER': {
       const { payload: num } = action;
-      
+
       if (state.showResult) {
         // 결과가 표시된 후 숫자를 입력하면 새로 시작
         return {
@@ -60,16 +60,16 @@ function calculatorReducer(state: CalculatorState, action: CalculatorAction): Ca
           display: num,
         };
       }
-      
+
       const newDisplay = state.display === '0' ? num : state.display + num;
-      
+
       let newExpression: string;
       if (state.expression === '') {
         newExpression = num;
       } else {
         newExpression = updateExpressionWithNewNumber(state.expression, newDisplay);
       }
-      
+
       return {
         ...state,
         expression: newExpression,
@@ -80,28 +80,29 @@ function calculatorReducer(state: CalculatorState, action: CalculatorAction): Ca
 
     case 'INPUT_OPERATOR': {
       const { payload: operator } = action;
-      
+
       if (state.showResult) {
-        // 결과에서 연산자를 입력하면 결과값으로 계속 계산
         return {
           ...state,
           expression: state.display + operator,
           showResult: false,
+          display: '0',
         };
       }
-      
-      // 마지막 문자가 연산자인 경우 교체
+
       const lastChar = state.expression[state.expression.length - 1];
       if (['+', '-', '×', '÷'].includes(lastChar)) {
         return {
           ...state,
           expression: state.expression.slice(0, -1) + operator,
+          display: '0',
         };
       }
-      
+
       return {
         ...state,
         expression: state.expression + operator,
+        display: '0',
       };
     }
 
@@ -114,14 +115,14 @@ function calculatorReducer(state: CalculatorState, action: CalculatorAction): Ca
           display: '0.',
         };
       }
-      
+
       if (state.display.includes('.')) {
         return state; // 이미 소수점이 있으면 무시
       }
-      
+
       const newDisplay = `${state.display}.`;
       const newExpression = updateExpressionWithNewNumber(state.expression, newDisplay);
-      
+
       return {
         ...state,
         expression: newExpression,
@@ -131,7 +132,7 @@ function calculatorReducer(state: CalculatorState, action: CalculatorAction): Ca
 
     case 'CALCULATE': {
       const { result } = action.payload;
-      
+
       if (result !== null) {
         return {
           ...state,
@@ -141,7 +142,7 @@ function calculatorReducer(state: CalculatorState, action: CalculatorAction): Ca
           hasError: false,
         };
       }
-      
+
       return {
         ...state,
         display: 'Error',
@@ -158,34 +159,32 @@ function calculatorReducer(state: CalculatorState, action: CalculatorAction): Ca
       if (state.showResult) {
         return initialState;
       }
-      
+
       if (state.expression.length <= 1) {
         return initialState;
       }
-      
+
       const newExpression = state.expression.slice(0, -1);
       const lastChar = state.expression[state.expression.length - 1];
-      
+
       // 연산자를 지웠다면
       if (['+', '-', '×', '÷'].includes(lastChar)) {
         const lastOperatorIndex = getLastOperatorIndex(newExpression);
-        const newDisplay = lastOperatorIndex === -1 
-          ? newExpression || '0'
-          : newExpression.substring(lastOperatorIndex + 1) || '0';
-        
+        const newDisplay =
+          lastOperatorIndex === -1 ? newExpression || '0' : newExpression.substring(lastOperatorIndex + 1) || '0';
+
         return {
           ...state,
           expression: newExpression,
           display: newDisplay,
         };
       }
-      
+
       // 숫자를 지웠다면
       const lastOperatorIndex = getLastOperatorIndex(newExpression);
-      const newDisplay = lastOperatorIndex === -1
-        ? newExpression || '0'
-        : newExpression.substring(lastOperatorIndex + 1) || '0';
-      
+      const newDisplay =
+        lastOperatorIndex === -1 ? newExpression || '0' : newExpression.substring(lastOperatorIndex + 1) || '0';
+
       return {
         ...state,
         expression: newExpression,
@@ -197,12 +196,12 @@ function calculatorReducer(state: CalculatorState, action: CalculatorAction): Ca
       if (state.showResult || state.hasError) {
         return state;
       }
-      
+
       const currentValue = Number.parseFloat(state.display);
       const newValue = -currentValue;
       const newDisplay = String(newValue);
       const newExpression = updateExpressionWithNewNumber(state.expression, newDisplay);
-      
+
       return {
         ...state,
         expression: newExpression,
@@ -214,12 +213,12 @@ function calculatorReducer(state: CalculatorState, action: CalculatorAction): Ca
       if (state.showResult || state.hasError) {
         return state;
       }
-      
+
       const currentValue = Number.parseFloat(state.display);
       const newValue = currentValue / 100;
       const newDisplay = String(newValue);
       const newExpression = updateExpressionWithNewNumber(state.expression, newDisplay);
-      
+
       return {
         ...state,
         expression: newExpression,
@@ -255,6 +254,6 @@ export const useCalculatorState = () => {
       backspace: () => dispatch({ type: 'BACKSPACE' }),
       toggleSign: () => dispatch({ type: 'TOGGLE_SIGN' }),
       percentage: () => dispatch({ type: 'PERCENTAGE' }),
-    }
+    },
   };
 };
